@@ -80,16 +80,11 @@ public class Scanner {
           addToken(TokenType.SLASH);
         }
         break;
-      case ' ':
-      case '\r':
-      case '\t':
-        // Ignore whitespace.
-        break;
-
-      case '\n':
-        line++;
-        break;
-      case '"': string(); break;
+      case ' ' :  break; // Ignore whitespace.
+      case '\r':  break; // Ignore whitespace.
+      case '\t':  break; // Ignore whitespace.
+      case '\n': line++; break; // New line.
+      case '"' : string(); break;
       default:
         if (isDigit(c)) {
           number();
