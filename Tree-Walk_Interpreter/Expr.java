@@ -12,6 +12,24 @@ public abstract class Expr {
     R visitUnaryExpr(Unary expr);
     R visitVariableExpr(Variable expr);
     R visitLogicalExpr(Logical expr);
+    R visitCallExpr(Call expr);
+  }
+
+  public static class Call extends Expr {
+    public final Expr callee;
+    public final Token paren;
+    public final List<Expr> arguments;
+
+    Call(Expr callee, Token paren, List<Expr> arguments) {
+      this.callee = callee;
+      this.paren = paren;
+      this.arguments = arguments;
+    }
+
+    @Override
+    public <R> R accept(Visitor<R> visitor) {
+      return visitor.visitCallExpr(this);
+    }
   }
 
   public static class Assign extends Expr {
