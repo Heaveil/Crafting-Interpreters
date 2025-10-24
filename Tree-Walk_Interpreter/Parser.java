@@ -11,7 +11,7 @@ public class Parser {
     this.tokens = tokens;
   }
 
-  List<Stmt> parse() {
+  public List<Stmt> parse() {
     List<Stmt> statements = new ArrayList<>();
     while (!isAtEnd()) {
       statements.add(declaration());
