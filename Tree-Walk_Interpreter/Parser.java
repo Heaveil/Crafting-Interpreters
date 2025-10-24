@@ -43,8 +43,7 @@ public class Parser {
           error(peek(), "Can't have more than 255 parameters.");
         }
 
-        parameters.add(
-            consume(TokenType.IDENTIFIER, "Expect parameter name."));
+        parameters.add(consume(TokenType.IDENTIFIER, "Expect parameter name."));
       } while (match(TokenType.COMMA));
     }
     consume(TokenType.RIGHT_PAREN, "Expect ')' after parameters.");
