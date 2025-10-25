@@ -13,8 +13,55 @@ public abstract class Expr {
     R visitVariableExpr(Variable expr);
     R visitLogicalExpr(Logical expr);
     R visitCallExpr(Call expr);
+    R visitGetExpr(Get expr);
+    R visitSetExpr(Set expr);
+    R visitThisExpr(This expr);
+  }
+  
+  public static class This extends Expr {
+    public final Token keyword;
+
+    This(Token keyword) {
+      this.keyword = keyword;
+    }
+
+    @Override
+    public <R> R accept(Visitor<R> visitor) {
+      return visitor.visitThisExpr(this);
+    }
   }
 
+  public static class Set extends Expr {
+    public final Expr object;
+    public final Token name;
+    public final Expr value;
+
+    Set(Expr object, Token name, Expr value) {
+      this.object = object;
+      this.name = name;
+      this.value = value;
+    }
+
+    @Override
+    public <R> R accept(Visitor<R> visitor) {
+      return visitor.visitSetExpr(this);
+    }
+  }
+
+  public static class Get extends Expr {
+    public final Expr object;
+    public final Token name;
+
+    Get(Expr object, Token name) {
+      this.object = object;
+      this.name = name;
+    }
+
+    @Override
+    public <R> R accept(Visitor<R> visitor) {
+      return visitor.visitGetExpr(this);
+    }
+  }
   public static class Call extends Expr {
     public final Expr callee;
     public final Token paren;
@@ -53,7 +100,7 @@ public abstract class Expr {
     public final Token operator;
     public final Expr right;
 
-    public Binary(Expr left, Token operator, Expr right) {
+    Binary(Expr left, Token operator, Expr right) {
       this.left = left;
       this.operator = operator;
       this.right = right;
@@ -69,7 +116,7 @@ public abstract class Expr {
 
     public final Expr expression;
 
-    public Grouping(Expr expression) {
+    Grouping(Expr expression) {
       this.expression = expression;
     }
 
@@ -83,7 +130,7 @@ public abstract class Expr {
 
     public final Object value;
 
-    public Literal(Object value) {
+    Literal(Object value) {
       this.value = value;
     }
 
@@ -98,7 +145,7 @@ public abstract class Expr {
     public final Token operator;
     public final Expr right;
 
-    public Unary(Token operator, Expr right) {
+    Unary(Token operator, Expr right) {
       this.operator = operator;
       this.right = right;
     }
