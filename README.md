@@ -1,1 +1,1 @@
-![turing-machine](./turing-machine.png)
+![mountain](./mountain.png)
